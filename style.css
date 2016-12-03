@@ -1,0 +1,6 @@
+textarea.form-control {
+  resize: none;
+  font-family: Courier New, Courier, monospace;
+  font-size: x-small;
+  white-space: pre;
+}
