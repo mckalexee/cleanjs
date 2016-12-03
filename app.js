@@ -3,11 +3,20 @@ var codeOut = document.getElementById("codeOut");
 var regexFormat = new RegExp(/^\s*((\}|;|\)).*)$/);
 var regexPadding = new RegExp(/[\;|\{|\}][\}\{\;]*$/);
 
+/*
+  Most of the logic is written into this function. It would probably be
+  more versitile if a string was sent to this funciton, and it returned
+  a formatted string. 
+*/
 function cleanCode() {
   var maxLength = 4;
   var codeInLines = codeIn.value.split('\n');
   var formatted = '';
   var padded = '';
+
+  //  This loop will find any lines that are just brackets and semicolons
+  //  and it appends it to the previous lines. It also counts the maximum
+  //  lenght of the lines to determine how much to pad
   for(i = 0; i < codeInLines.length; i++ ){
     if(codeInLines[i].length > maxLength) maxLength = codeInLines[i].length;
     match = codeInLines[i].match(regexFormat)
@@ -19,6 +28,8 @@ function cleanCode() {
     }
   }
   var formattedLines = formatted.split('\n');
+
+  // This loop pads the lines to the correct length.
   for(i = 0; i < formattedLines.length; i++) {
     match = formattedLines[i].match(regexPadding);
     if(match){
@@ -33,13 +44,14 @@ function cleanCode() {
   codeOut.select();
 }
 
-
+// This is Matthew Hatcher's right pad function. Modified it to where it will
+// Just add a space to single character lines
 function rightPad (_string, _length, _char) {
   if (typeof _string !== 'string') {
     throw new Error('The string parameter must be a string.');
   }
   if (_string.length < 1) {
-    _string = ' ' + _string;
+    _string =+ ' '
   }
   if (typeof _length !== 'number') {
     throw new Error('The length parameter must be a number.');
